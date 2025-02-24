@@ -353,6 +353,8 @@
    <field name='ClientID' required='N' />
    <field name='ExecBroker' required='N' />
    <field name='Account' required='N' />
+   <field name="HandlInst" required="Y"/>
+   
    <group name='NoAllocs' required='N'>
     <field name='AllocAccount' required='N' />
     <field name='AllocShares' required='N' />
