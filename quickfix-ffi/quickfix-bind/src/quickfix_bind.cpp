@@ -1040,5 +1040,35 @@ int8_t FixSession_logon(FixSession_t *session) {
   });
 }
 
+int FixSession_getExpectedTargetNum(FixSession_t *session) {
+  RETURN_VAL_IF_NULL(session, ERRNO_INVAL);
+  CATCH_OR_RETURN_ERRNO({
+    return session->getExpectedTargetNum();
+  });
+}
+
+int FixSession_getExpectedSenderNum(FixSession_t *session) {
+  RETURN_VAL_IF_NULL(session, ERRNO_INVAL);
+  CATCH_OR_RETURN_ERRNO({
+    return session->getExpectedSenderNum();
+  });
+}
+
+int FixSession_setNextSenderMsgSeqNum(FixSession_t *session, int num) {
+  RETURN_VAL_IF_NULL(session, ERRNO_INVAL);
+  CATCH_OR_RETURN_ERRNO({
+    session->setNextSenderMsgSeqNum(num);
+    return 0;
+  });
+}
+
+int FixSession_setNextTargetMsgSeqNum(FixSession_t *session, int num) {
+  RETURN_VAL_IF_NULL(session, ERRNO_INVAL);
+  CATCH_OR_RETURN_ERRNO({
+    session->setNextTargetMsgSeqNum(num);
+    return 0;
+  });
+}
+
 } // namespace FIX
 } // extern C

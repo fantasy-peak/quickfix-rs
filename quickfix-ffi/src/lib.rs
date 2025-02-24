@@ -462,4 +462,13 @@ extern "C" {
     pub fn FixSession_reset(session: FixSession_t) -> i8;
     #[must_use]
     pub fn FixSession_logon(session: FixSession_t) -> i8;
+
+    #[must_use]
+    pub fn FixSession_getExpectedTargetNum(session: FixSession_t) -> i64;
+    #[must_use]
+    pub fn FixSession_getExpectedSenderNum(session: FixSession_t) -> i64;
+    #[must_use]
+    pub fn FixSession_setNextTargetMsgSeqNum(session: FixSession_t, num: i64) -> i64;
+    #[must_use]
+    pub fn FixSession_setNextSenderMsgSeqNum(session: FixSession_t, num: i64) -> i64;
 }

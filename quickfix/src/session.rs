@@ -1,8 +1,10 @@
 use std::{fmt, marker::PhantomData};
 
 use quickfix_ffi::{
-    FixSession_isLoggedOn, FixSession_logon, FixSession_logout, FixSession_lookup,
-    FixSession_reset, FixSession_send, FixSession_sendToTarget, FixSession_t,
+    FixSession_getExpectedSenderNum, FixSession_getExpectedTargetNum, FixSession_isLoggedOn,
+    FixSession_logon, FixSession_logout, FixSession_lookup, FixSession_reset, FixSession_send,
+    FixSession_sendToTarget, FixSession_setNextSenderMsgSeqNum, FixSession_setNextTargetMsgSeqNum,
+    FixSession_t,
 };
 
 use crate::{
@@ -68,6 +70,38 @@ impl Session<'_> {
     /// Enable session so that logon is sent.
     pub fn logon(&mut self) -> Result<(), QuickFixError> {
         ffi_code_to_result(unsafe { FixSession_logon(self.inner) })
+    }
+
+    pub fn get_expected_target_num(&mut self) -> Result<(), QuickFixError> {
+        ffi_code_to_result(unsafe {
+            FixSession_getExpectedTargetNum(self.inner)
+                .try_into()
+                .unwrap()
+        })
+    }
+
+    pub fn get_expected_sender_num(&mut self) -> Result<(), QuickFixError> {
+        ffi_code_to_result(unsafe {
+            FixSession_getExpectedSenderNum(self.inner)
+                .try_into()
+                .unwrap()
+        })
+    }
+
+    pub fn set_next_sender_msg_seq_num(&mut self, num: i64) -> Result<(), QuickFixError> {
+        ffi_code_to_result(unsafe {
+            FixSession_setNextSenderMsgSeqNum(self.inner, num)
+                .try_into()
+                .unwrap()
+        })
+    }
+
+    pub fn set_next_target_msg_seq_num(&mut self, num: i64) -> Result<(), QuickFixError> {
+        ffi_code_to_result(unsafe {
+            FixSession_setNextTargetMsgSeqNum(self.inner, num)
+                .try_into()
+                .unwrap()
+        })
     }
 }
 
